@@ -2,17 +2,25 @@ package sankaskapp;
 
 import java.util.ArrayList;
 
-public class BattleShip extends Ship {
+public class BattleShip {
+	private String name;
+	private int size;
+	private String[][] shipArea;
 	private int hits;
 	private boolean sinked = false;
 	private String[] shipC = new String[25];
 	private ArrayList<String> coordList = new ArrayList<String>();
 	private int shipX;
 	private int shipY;
-	//private String[][] shipArea;
 
 	public BattleShip(String name, int size, String[][] shipArea) {
-		super(name, size, shipArea);
+		setName(name);
+		setSize(size);
+		setShipArea(shipArea);
+	}
+	
+	void setShipArea(String[][] shipArea) {
+		this.shipArea = shipArea;
 	}
 
 	int getHits() {
@@ -43,13 +51,21 @@ public class BattleShip extends Ship {
 	String getName() {
 		return name;
 	}
+	
+	void setName(String name) {
+		this.name = name;
+	}
 
 	int getSize() {
 		return size;
 	}
+	
+	void setSize(int size) {
+		this.size = size;
+	}
 
 	String[][] getArea() {
-		return area;
+		return shipArea;
 	}
 	
 	void setShipX(int x) {
@@ -97,7 +113,7 @@ public class BattleShip extends Ship {
 	}
 	
 	void setArea(String[][] s) {
-		area = s;
+		shipArea = s;
 	}
 
 }

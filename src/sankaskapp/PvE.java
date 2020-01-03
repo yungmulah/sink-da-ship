@@ -45,7 +45,8 @@ public class PvE extends RunGame {
 		playerName = scan.nextLine();
 		System.out.println(playerName + "'s tur att placera ut sina skepp.");
 		System.out.println("===========================");
-		standardShips();
+		//standardShips();
+		specialShips();
 		System.out.println("Vill du placera ut båtarna själv? Ja/Nej");
 		boolean svar = false;
 		while(!svar) {
@@ -84,10 +85,6 @@ public class PvE extends RunGame {
 		for (BattleShip ship : playerShips()) {
 			computerPlaceShips(ship);
 		}
-		//Raderna nedan skall bort.
-		System.out.println("DATORNS: ");
-		printBoard(0);
-
 	}
 
 	public static void playerTurn() {
@@ -116,7 +113,7 @@ public class PvE extends RunGame {
 		}
 		System.out.println("Tryck på Enter för att avsluta din omgång.");
 		scan.nextLine();
-		addPlayerTime(t - System.currentTimeMillis());
+		addPlayerTime(System.currentTimeMillis() - t);
 	}
 
 	public static void computerTurn() {
@@ -151,7 +148,7 @@ public class PvE extends RunGame {
 		if(playerShots != 0) {
 			System.out.println(playerName + "'s träffprocent är: " + String.format("%.2f", hitP) + "%");
 			System.out.println("Du har gjort " + String.format("%.2f", dmgP) + "% skada på datorn!");
-			System.out.println("Du snittar "+ shotTime + " sekunder per omgång.");
+			System.out.println("Du snittar "+ shotTime/1000 + " sekunder per omgång.");
 		}
 	}
 	

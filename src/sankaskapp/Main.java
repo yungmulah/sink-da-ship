@@ -78,12 +78,16 @@ public class Main implements MenuItem {
 		playMenu.add(new AbstractMenuItem("Spela mot en vän") {
 			public void execute() {
 				PvP.main(args);
+				mainMenu.execute();
 			}
 
 		});
 		playMenu.add(new AbstractMenuItem("Spela mot datorn") {
 			public void execute() {
 				PvE.main(args);
+				mainMenu.execute();
+				System.out.println();
+
 			}
 
 		});

@@ -30,7 +30,7 @@ public class RunGame {
 			}
 
 			String s = String.valueOf(x) + String.valueOf(y);
-
+			
 			if (validPlacement(s, ship)) {
 				outerloop: for (int q = y; q < y + ship.getShipY(); q++) {
 					for (int p = x; p < x + ship.getShipX(); p++) {
@@ -64,12 +64,12 @@ public class RunGame {
 			}
 		}
 	}
-	
+
 	public static int checkSize(String[][] array, int x, int y) {
 		int size = 0;
-		for(int k = 0; k < y; k++) {
-			for(int l = 0; l < x; l++) {
-				if(array[k][l].equals("#")) {
+		for (int k = 0; k < y; k++) {
+			for (int l = 0; l < x; l++) {
+				if (array[k][l].equals("#")) {
 					size++;
 				}
 			}
@@ -81,11 +81,14 @@ public class RunGame {
 		int size = 0;
 		int shipX = 0;
 		int shipY = 0;
-		
-		//Skapa det första special skeppet
-		//Ändra shipX/Y för att ändra arean som skeppet ska få plats i.
-		//Gör du arean för stor så kan det vara svårt att placera skeppet
-		//Om andra skepp ligger nära.
+
+		// Skapa det första special skeppet
+		// Ändra shipX/Y för att ändra arean som skeppet ska få plats i.
+		// Gör du arean för stor så kan det vara svårt att placera skeppet
+		// Om andra skepp ligger nära. Vill du göra fler skepp så är ett 
+		// tips att göra alla mindre, om du har många stora skepp så finns
+		// risken att placeringsförslaget fastnar då skeppen blockerar
+		// varandra.
 		shipX = 5;
 		shipY = 2;
 		String[][] ship1 = new String[shipY][shipX];
@@ -94,28 +97,28 @@ public class RunGame {
 				ship1[y][x] = "~";
 			}
 		}
-		//Genom att ändra dessa [y][x] koordinater så kommer skeppet att 
-		//se olika ut. Koordinaterna nedan skapar exempelskeppet i pdf:n.
-		//Genom att lägga till eller ta bort rader nedan så ändras den
-		//totala storleken på skeppet.
+		// Genom att ändra dessa [y][x] koordinater så kommer skeppet att
+		// se olika ut. Koordinaterna nedan skapar exempelskeppet i pdf:n.
+		// Genom att lägga till eller ta bort rader nedan så ändras den
+		// totala storleken på skeppet.
 		ship1[1][0] = "#";
 		ship1[1][1] = "#";
 		ship1[1][2] = "#";
 		ship1[1][3] = "#";
 		ship1[0][3] = "#";
 		ship1[0][4] = "#";
-		//Sedan löser resterande 5 rader att skeppet läggs till där
-		//du har placerat det. Fortsätt att ändra de andra skeppen om 
-		//så önskas.
+		// Sedan löser resterande 5 rader att skeppet läggs till där
+		// du har placerat det. Fortsätt att ändra de andra skeppen om
+		// så önskas.
 		size = checkSize(ship1, shipX, shipY);
-		ship = new BattleShip("Testskepp", size, ship1);
+		ship = new BattleShip("Specialskepp 1", size, ship1);
 		playerShips().add(ship);
 		ship.setShipX(shipX);
 		ship.setShipY(shipY);
 
-		//Skapa skepp nr 2...
-		shipX = 5;
-		shipY = 1;
+		// Skapa skepp nr 2...
+		shipX = 3;
+		shipY = 2;
 		String[][] ship2 = new String[shipY][shipX];
 		for (int y = 0; y < shipY; y++) {
 			for (int x = 0; x < shipX; x++) {
@@ -124,18 +127,18 @@ public class RunGame {
 		}
 		ship2[0][0] = "#";
 		ship2[0][1] = "#";
+		ship2[1][0] = "#";
+		ship2[1][1] = "#";
 		ship2[0][2] = "#";
-		ship2[0][3] = "#";
-		ship2[0][4] = "#";
 		size = checkSize(ship2, shipX, shipY);
-		ship = new BattleShip("Regalskeppet Vasa", size, ship2);
+		ship = new BattleShip("Specialskepp 2", size, ship2);
 		playerShips().add(ship);
 		ship.setShipX(shipX);
 		ship.setShipY(shipY);
-		
-		//Skepp nr 3
-		shipX = 5;
-		shipY = 1;
+
+		// Skepp nr 3
+		shipX = 4;
+		shipY = 2;
 		String[][] ship3 = new String[shipY][shipX];
 		for (int y = 0; y < shipY; y++) {
 			for (int x = 0; x < shipX; x++) {
@@ -146,49 +149,29 @@ public class RunGame {
 		ship3[0][1] = "#";
 		ship3[0][2] = "#";
 		ship3[0][3] = "#";
-		ship3[0][4] = "#";
+		ship3[1][3] = "#";
 		size = checkSize(ship3, shipX, shipY);
-		ship = new BattleShip("Regalskeppet Vasa", size, ship3);
+		ship = new BattleShip("Specialskepp 3", size, ship3);
 		playerShips().add(ship);
 		ship.setShipX(shipX);
 		ship.setShipY(shipY);
-		
-		//Skepp nr 4
-		shipX = 5;
-		shipY = 1;
+
+		// Skepp nr 4
+		shipX = 4;
+		shipY = 2;
 		String[][] ship4 = new String[shipY][shipX];
 		for (int y = 0; y < shipY; y++) {
 			for (int x = 0; x < shipX; x++) {
 				ship4[y][x] = "~";
 			}
 		}
+		ship4[1][0] = "#";
 		ship4[0][0] = "#";
 		ship4[0][1] = "#";
 		ship4[0][2] = "#";
 		ship4[0][3] = "#";
-		ship4[0][4] = "#";
 		size = checkSize(ship4, shipX, shipY);
-		ship = new BattleShip("Regalskeppet Vasa", size, ship4);
-		playerShips().add(ship);
-		ship.setShipX(shipX);
-		ship.setShipY(shipY);
-		
-		//Skepp nr 5
-		shipX = 5;
-		shipY = 1;
-		String[][] ship5 = new String[shipY][shipX];
-		for (int y = 0; y < shipY; y++) {
-			for (int x = 0; x < shipX; x++) {
-				ship5[y][x] = "~";
-			}
-		}
-		ship5[0][0] = "#";
-		ship5[0][1] = "#";
-		ship5[0][2] = "#";
-		ship5[0][3] = "#";
-		ship5[0][4] = "#";
-		size = checkSize(ship5, shipX, shipY);
-		ship = new BattleShip("Regalskeppet Vasa", size, ship5);
+		ship = new BattleShip("Specialskepp 4", size, ship4);
 		playerShips().add(ship);
 		ship.setShipX(shipX);
 		ship.setShipY(shipY);
@@ -196,37 +179,39 @@ public class RunGame {
 
 	public static void standardShips() {
 		String[][] Regal = new String[1][5];
-		ship = new BattleShip("Regalskeppet Vasa", 5, fillArray(Regal));
+		ship = new BattleShip("Regalskeppet Vasa", 5, fillArray(Regal, 5, 1));
 		playerShips().add(ship);
 		ship.setShipX(5);
 		ship.setShipY(1);
 
 		for (int i = 0; i < 2; i++) {
 			String[][] Milit = new String[1][4];
-			ship = new BattleShip("en militärbåt", 4, fillArray(Milit));
+			ship = new BattleShip("en militärbåt", 4, fillArray(Milit, 4, 1));
 			playerShips().add(ship);
 			ship.setShipX(4);
 			ship.setShipY(1);
 		}
 		for (int i = 0; i < 2; i++) {
 			String[][] Segel = new String[1][3];
-			ship = new BattleShip("en segelbåt", 3, fillArray(Segel));
+			ship = new BattleShip("en segelbåt", 3, fillArray(Segel, 3, 1));
 			playerShips().add(ship);
 			ship.setShipX(3);
 			ship.setShipY(1);
 		}
 		for (int i = 0; i < 4; i++) {
 			String[][] Jolle = new String[1][2];
-			ship = new BattleShip("en jolle", 2, fillArray(Jolle));
+			ship = new BattleShip("en jolle", 2, fillArray(Jolle, 2, 1));
 			playerShips().add(ship);
 			ship.setShipX(2);
 			ship.setShipY(1);
 		}
 	}
 
-	public static String[][] fillArray(String[][] s) {
-		for (int i = 0; i < s.length; i++) {
-			s[0][i] = "#";
+	public static String[][] fillArray(String[][] s, int x, int y) {
+		for (int k = 0; k < y; k++) {
+			for (int l = 0; l < x; l++) {
+				s[k][l] = "#";
+			}
 		}
 		return s;
 	}
@@ -260,7 +245,6 @@ public class RunGame {
 	public static boolean validShot(String s) {
 		s = ctd(s);
 		if (playerShots().contains(s) && s.matches("[0-9]" + "[0-9]") && s.length() == 2) {
-			//playerShots().remove(s);
 			return true;
 		}
 		return false;
@@ -290,14 +274,6 @@ public class RunGame {
 			System.out.print("\n");
 		}
 		System.out.println();
-	}
-
-	public static void hitRatio(String s) {
-		int hits = ship.getHits();
-		int totalShots = 0;
-		double ratio = hits / totalShots;
-
-		System.out.print(ratio);
 	}
 
 	public static void markBoard(String s, String m, int p) {
@@ -352,7 +328,7 @@ public class RunGame {
 		String s = scan.next();
 		scan.nextLine();
 		System.out.println();
-		while (!validShot(s) && !validC(s)) {
+		while (!validShot(s) && validC(s)) {
 			System.out.println("Felaktigt skott, försök igen");
 			s = scan.next();
 			scan.nextLine();
@@ -363,6 +339,7 @@ public class RunGame {
 			isHit(s).setHits();
 			if (isHit(s).getHits() == isHit(s).getSize()) {
 				isHit(s).isSinked();
+				System.out.println("Träff!");
 				System.out.println("Du sänkte " + isHit(s).getName() + "!");
 				System.out.println();
 				if (allShipsSinked()) {
@@ -370,14 +347,12 @@ public class RunGame {
 				}
 				System.out.println("Du får skjuta igen.");
 				System.out.println();
-				printBoard(1);
 			} else {
 				markOpponentBoard(s, "x", 0);
 				markBoard(s, "x", 1);
 				System.out.println();
 				System.out.println("Träff, du får skjuta igen.");
 				System.out.println();
-				printBoard(1);
 			}
 			return false;
 		} else {
@@ -385,7 +360,6 @@ public class RunGame {
 			markBoard(s, "o", 1);
 			System.out.println("Bom");
 			System.out.println();
-			printBoard(1);
 			System.out.println("Nästa spelares tur.");
 			System.out.println();
 			return true;
@@ -454,7 +428,7 @@ public class RunGame {
 
 	public static void placeShip(BattleShip ship) {
 		boolean validP = false;
-		
+
 		while (!validP) {
 			for (int y = 0; y < ship.getShipY(); y++) {
 				for (int x = 0; x < ship.getShipX(); x++) {
@@ -470,7 +444,7 @@ public class RunGame {
 			System.out.print("Skriv in vilken koordinat du vill placera " + ship.getName() + " på: ");
 			String s = scan.next();
 			scan.nextLine();
-			
+
 			while (!validShot(s) && validC(s)) {
 				System.out.print("Felaktigt koordinat, försök igen: ");
 				s = scan.next();
@@ -482,11 +456,11 @@ public class RunGame {
 			char r = scan.next().charAt(0);
 			scan.nextLine();
 			System.out.println();
-			
-			while(r != 'H' && r != 'h' && r != 'L' && r != 'l') {
+
+			while (r != 'H' && r != 'h' && r != 'L' && r != 'l') {
 				System.out.print("Vänligen skriv in H eller L:");
 				r = scan.next().charAt(0);
-				//scan.nextLine();
+				scan.nextLine();
 				System.out.println();
 			}
 			int i = Character.getNumericValue(s.charAt(0)); // x

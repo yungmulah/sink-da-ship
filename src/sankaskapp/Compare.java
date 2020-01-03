@@ -87,6 +87,9 @@ public class Compare extends Player {
 			}
 			player.removeAll(player);
 			break;
+		default: 
+			System.out.println("df");
+			return;
 
 		}
 

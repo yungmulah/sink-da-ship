@@ -15,6 +15,8 @@ public class PvP extends RunGame {
 	protected static double p2Shots;
 	protected static long p1Time;
 	protected static long p2Time;
+	protected static double player1Rounds = 0;
+	protected static double player2Rounds = 0;
 
 	public static void main(String[] args) {
 		fillGrid();
@@ -39,6 +41,8 @@ public class PvP extends RunGame {
 		}
 		if (player1Won) {
 			System.out.println(p1Name + " är vinnaren!");
+			System.out.println("Din statistik för detta spelet: " );
+			playerStats(1);
 			writeHighscore(player1);
 		} else {
 			System.out.println(p2Name + " är vinnaren!");
@@ -73,6 +77,22 @@ public class PvP extends RunGame {
 			return p1Shots;
 		} else {
 			return p2Shots;
+		}
+	}
+	
+	public static void addPlayerRounds(int p) {
+		if (p == 1) {
+			player1Rounds++;
+		} else {
+			player2Rounds++;
+		}
+	}
+	
+	public static double playerRounds(int p) {
+		if (p == 1) {
+			return player1Rounds;
+		} else {
+			return player2Rounds;
 		}
 	}
 	
@@ -154,15 +174,6 @@ public class PvP extends RunGame {
 		}
 	}
 	
-	public static double returnShots (int p) {
-		if (p == 1) {
-			return p1Shots;
-		}
-		else {
-			return p2Shots;
-		}
-				
-	}
 
 	public static void playerTurn(int p) {
 		System.out.println("Är " + playerName(p) + " redo? Tryck på Enter.");
@@ -178,6 +189,7 @@ public class PvP extends RunGame {
 
 		while (!shot) {
 			shot = shoot();
+			printBoard(1);
 			addShots(p);
 			if (allShipsSinked()) {
 				gameEnded = true;
@@ -185,6 +197,7 @@ public class PvP extends RunGame {
 		}
 		System.out.println("Tryck på Enter för att avsluta din omgång.");
 		scan.nextLine();
+		addPlayerRounds(p);
 		addPlayerTime(p, System.currentTimeMillis() - t);
 		for (int i = 0; i <= 50; i++) {
 			System.out.println();
@@ -204,15 +217,14 @@ public class PvP extends RunGame {
 		if (playerShots(p) == 0) {
 			hitP = 0;
 		}
-		double dmgP = (shipsHit / totalShips) * 100;
-		double shotTime = playerTime(p)/playerShots(p);
 
+		double dmgP = (shipsHit / totalShips) * 100;
 		
-		if(playerShots(p) != 0) {
+		if(playerRounds(p) != 0) {
 			System.out.println(playerName(p) + "'s träffprocent är: " + String.format("%.2f", hitP) + "%");
 			System.out.println(
 				"Du har gjort " + String.format("%.2f", dmgP) + "% skada på din motståndare " + opponentName(p) + "!");
-			System.out.println("Du snittar "+ shotTime + " sekunder per omgång.");
+			System.out.println("Du snittar "+ (int)(playerTime(p)/playerRounds(p)) + " sekunder per omgång.");
 		}
 		System.out.println();
 	}
@@ -236,9 +248,9 @@ public class PvP extends RunGame {
 		try {
 		BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/administrator/eclipse-workspace/sankaskapp/src/sankaskapp/Highscore", true));
 		writer.write(playerName(p) + ",");
-		writer.write(String.valueOf((int)returnShots(p)) + ",");
+		writer.write(String.valueOf((int)playerShots(p)) + ",");
 		writer.write(String.valueOf((int)hitP) + ",");
-		writer.write(String.valueOf(playerTime(p)) + ",");
+		writer.write(String.valueOf((int)(playerTime(p)/playerRounds(p))) + ",");
 		writer.write(String.valueOf((int)ownHitP));
 		writer.newLine();
 		writer.close();
