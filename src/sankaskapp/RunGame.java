@@ -6,8 +6,7 @@ public class RunGame {
 	private static Scanner scan = new Scanner(System.in);
 	protected static String[][][] grid1;
 	protected static String[][][] grid2;
-	protected static int player1;
-	protected static int player2;
+	protected static int currentPlayer;
 	protected static List<BattleShip> ships1 = new ArrayList<>();
 	protected static List<BattleShip> ships2 = new ArrayList<>();
 	protected static List<String> player1Shots = new ArrayList<String>();
@@ -30,7 +29,7 @@ public class RunGame {
 			}
 
 			String s = String.valueOf(x) + String.valueOf(y);
-			
+
 			if (validPlacement(s, ship)) {
 				outerloop: for (int q = y; q < y + ship.getShipY(); q++) {
 					for (int p = x; p < x + ship.getShipX(); p++) {
@@ -85,7 +84,7 @@ public class RunGame {
 		// Skapa det första special skeppet
 		// Ändra shipX/Y för att ändra arean som skeppet ska få plats i.
 		// Gör du arean för stor så kan det vara svårt att placera skeppet
-		// Om andra skepp ligger nära. Vill du göra fler skepp så är ett 
+		// Om andra skepp ligger nära. Vill du göra fler skepp så är ett
 		// tips att göra alla mindre, om du har många stora skepp så finns
 		// risken att placeringsförslaget fastnar då skeppen blockerar
 		// varandra.
@@ -379,35 +378,35 @@ public class RunGame {
 	}
 
 	public static String[][][] playerGrid() {
-		if (player1 == 1) {
+		if (currentPlayer == 1) {
 			return grid1;
 		}
 		return grid2;
 	}
 
 	public static String[][][] opponentGrid() {
-		if (player1 == 1) {
+		if (currentPlayer == 1) {
 			return grid2;
 		}
 		return grid1;
 	}
 
 	public static List<BattleShip> playerShips() {
-		if (player1 == 1) {
+		if (currentPlayer == 1) {
 			return ships1;
 		}
 		return ships2;
 	}
 
 	public static List<BattleShip> opponentShips() {
-		if (player1 == 1) {
+		if (currentPlayer == 1) {
 			return ships2;
 		}
 		return ships1;
 	}
 
 	public static List<String> playerShots() {
-		if (player1 == 1) {
+		if (currentPlayer == 1) {
 			return player1Shots;
 		}
 		return player2Shots;
