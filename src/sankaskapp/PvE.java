@@ -27,6 +27,7 @@ public class PvE extends RunGame {
 			}
 			computerTurn();
 			if (allShipsSinked()) {
+				System.out.println("Datorn sänkte alla dina skepp!");
 				break;
 			}
 		}
@@ -35,25 +36,28 @@ public class PvE extends RunGame {
 			System.out.println("Du slog datorn på " + Math.round(playerShots) + " rundor!");
 			System.out.println();
 		} else {
+			System.out.println();
 			System.out.println("Datorn vann över dig på " + Math.round(computerShots) + " rundor!");
 		}
 	}
 
 	public static void playerPlaceShips() {
-		player1 = 1;
+		currentPlayer = 1;
 		System.out.print("Namn på spelaren: ");
 		playerName = scan.nextLine();
+		System.out.println();
 		System.out.println(playerName + "'s tur att placera ut sina skepp.");
-		System.out.println("===========================");
-		//standardShips();
+		System.out.println("=======================================");
 		specialShips();
-		System.out.println("Vill du placera ut båtarna själv? Ja/Nej");
+		System.out.println("Vill du placera ut båtarna själv?");
+		System.out.print("Ja/Nej: ");
 		boolean svar = false;
 		while(!svar) {
 			switch(scan.next()) {
 			case "ja":
 			case "Ja":
 				for (BattleShip ship : playerShips()) {
+					System.out.println();
 					printBoard(0);
 					placeShip(ship);
 				}
@@ -65,13 +69,15 @@ public class PvE extends RunGame {
 					computerPlaceShips(ship);
 				}
 				svar = true;
-				System.out.println("Dina båtar är placerade såhär:");
-				printBoard(0);
+				System.out.println();
 				break;
 			default:
-				System.out.println("Vänligen svara ja eller nej.");
+				System.out.print("Vänligen svara ja eller nej: ");
 			}
 		}
+		System.out.println();
+		System.out.println("Dina båtar är placerade såhär:");
+		printBoard(0);
 		scan.nextLine();
 		System.out.println("Tryck på Enter för att fortsätta");
 		scan.nextLine();
@@ -79,7 +85,7 @@ public class PvE extends RunGame {
 	}
 
 	public static void compPlaceShips() {
-		player1 = 2;
+		currentPlayer = 2;
 		System.out.println("Datorn placerar ut sina skepp.");
 		standardShips();
 		for (BattleShip ship : playerShips()) {
@@ -90,7 +96,7 @@ public class PvE extends RunGame {
 	public static void playerTurn() {
 		System.out.println("Tryck på Enter för att starta din omgång.");
 		scan.nextLine();
-		player1 = 1;
+		currentPlayer = 1;
 		long t = System.currentTimeMillis();
 		System.out.println("Ditt bräde:");
 		printBoard(0);
@@ -117,7 +123,7 @@ public class PvE extends RunGame {
 	}
 
 	public static void computerTurn() {
-		player1 = 2;
+		currentPlayer = 2;
 		boolean shot = true;
 		while (shot) {
 			shot = computerShoot();
