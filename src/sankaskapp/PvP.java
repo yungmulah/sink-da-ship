@@ -41,13 +41,13 @@ public class PvP extends RunGame {
 		}
 		if (player1Won) {
 			System.out.println(p1Name + " är vinnaren!");
-			System.out.println("Din statistik för detta spelet: " );
-			playerStats(1);
-			writeHighscore(player1);
-		} else {
+		}else {
 			System.out.println(p2Name + " är vinnaren!");
-			writeHighscore(player2);
 		}
+		System.out.println("Din statistik för detta spelet: " );
+		playerStats(currentPlayer);
+		writeHighscore(currentPlayer);
+		
 	}
 
 	public static void playerWon(int p) {
@@ -123,16 +123,17 @@ public class PvP extends RunGame {
 	}
 
 	public static void playerPlaceShip(int p) {
-		player1 = p;
+		currentPlayer = p;
 		System.out.print("Namn på spelare: ");
-		if (player1 == 1) {
+		if (currentPlayer == 1) {
 			p1Name = scan.nextLine();
 		} else {
 			p2Name = scan.nextLine();
 		}
 		System.out.println(playerName(p) + " placerar ut sina skepp.");
 		System.out.println("===========================");
-		standardShips();
+		//standardShips();
+		specialShips();
 		System.out.println("Vill du placera ut båtarna själv? Ja/Nej");
 		boolean svar = false;
 		while (!svar) {
@@ -179,7 +180,7 @@ public class PvP extends RunGame {
 		System.out.println("Är " + playerName(p) + " redo? Tryck på Enter.");
 		scan.nextLine();
 		long t = System.currentTimeMillis();
-		player1 = p;
+		currentPlayer = p;
 		System.out.println("Ditt bräde:");
 		printBoard(0);
 		System.out.println("Motståndarens bräde:");
@@ -246,7 +247,8 @@ public class PvP extends RunGame {
 		double ownHitP = (ownShipsHit / ownShipsSize * 100 );
 		
 		try {
-		BufferedWriter writer = new BufferedWriter(new FileWriter("/Users/administrator/eclipse-workspace/sankaskapp/src/sankaskapp/Highscore", true));
+		BufferedWriter writer = new BufferedWriter(new FileWriter
+				("/Users/administrator/eclipse-workspace/sankaskapp/src/sankaskapp/Highscore", true));
 		writer.write(playerName(p) + ",");
 		writer.write(String.valueOf((int)playerShots(p)) + ",");
 		writer.write(String.valueOf((int)hitP) + ",");
