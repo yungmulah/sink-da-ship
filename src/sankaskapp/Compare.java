@@ -6,7 +6,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -19,7 +18,7 @@ public class Compare extends Player {
 	protected static List<Player> player = new ArrayList<Player>();
 	protected static Scanner scan = new Scanner(System.in);
 
-	public static void main(String[] args) {
+	public static void reader() {
 		try {
 			BufferedReader reader = new BufferedReader(
 					new FileReader("/Users/administrator/eclipse-workspace/sankaskapp/src/sankaskapp/Highscore"));
@@ -37,63 +36,64 @@ public class Compare extends Player {
 				player.add(new Player(name, shots, percent, playertime, ownPercent));
 				currentLine = reader.readLine();
 			}
+			reader.close();
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
 			e.printStackTrace();
+		}	
+	}
+	
+	public static void shotSort() {
+		reader();
+		Collections.sort(player, new sortbyShots());
+		System.out.println();
+		for (Player player : player) {
+			System.out.println(player);
 		}
-
-		System.out.println("Sorteringsval:");
-		System.out.println("1 = Lägst antal skott");
-		System.out.println("2 = Högst träffprocent");
-		System.out.println("3 = Minst tid per runda");
-		System.out.println("4 = Lägst andel av egna flottan som var beskjuten");
-		System.out.print("Vad vill du sortera efter? ");
-
-		int choice = scan.nextInt();
-
-		switch (choice) {
-		case 1:
-			Collections.sort(player, new sortbyShots());
-			System.out.println();
-			for (Player player : player) {
-				System.out.println(player);
-			}
-			player.removeAll(player);
-			break;
-		case 2:
-			Collections.sort(player, new sortbyPercent());
-			System.out.println();
-			for (Player player : player) {
-				System.out.println(player);
-			}
-			player.removeAll(player);
-			break;
-
-		case 3:
-			Collections.sort(player, new sortbyPlayertime());
-			System.out.println();
-			for (Player player : player) {
-				System.out.println(player);
-			}
-			player.removeAll(player);
-			break;
-		case 4:
-			Collections.sort(player, new sortbyOwnP());
-			System.out.println();
-			for (Player player : player) {
-				System.out.println(player);
-			}
-			player.removeAll(player);
-			break;
-		default: 
-			System.out.println("df");
-			return;
-
+		player.removeAll(player);
+		System.out.println();
+		System.out.println("Tryck Enter för att gå tillbaka.");
+		scan.nextLine();
+	}
+	
+	public static void percentSort() {
+		reader();
+		Collections.sort(player, new sortbyPercent());
+		System.out.println();
+		for (Player player : player) {
+			System.out.println(player);
 		}
+		player.removeAll(player);
+		System.out.println();
+		System.out.println("Tryck Enter för att gå tillbaka.");
+		scan.nextLine();
+	}
 
+	public static void timeSort() {
+		reader();
+		Collections.sort(player, new sortbyPlayertime());
+		System.out.println();
+		for (Player player : player) {
+			System.out.println(player);
+		}
+		player.removeAll(player);
+		System.out.println();
+		System.out.println("Tryck Enter för att gå tillbaka.");
+		scan.nextLine();
+	}
+	
+	public static void damageSort() {
+		reader();
+		Collections.sort(player, new sortbyOwnP());
+		System.out.println();
+		for (Player player : player) {
+			System.out.println(player);
+		}
+		player.removeAll(player);
+		System.out.println();
+		System.out.println("Tryck Enter för att gå tillbaka.");
+		scan.nextLine();
 	}
 }
-
-
